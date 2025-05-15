@@ -5,7 +5,21 @@ import { data } from './data/resource';
 /**
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
  */
-defineBackend({
+const backend = defineBackend({
   auth,
   data,
+});
+
+
+// add outputs to the configuration file
+backend.addOutput({
+  custom: {
+    API: {
+      ['api-whatsapp-qr-printable']: {
+        endpoint:
+          'https://l3gps51tvb.execute-api.us-east-2.amazonaws.com/prod/',
+        region: 'us-east-2',
+      },
+    },
+  },
 });
