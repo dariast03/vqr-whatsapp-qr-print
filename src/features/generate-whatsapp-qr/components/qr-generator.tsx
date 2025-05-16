@@ -140,6 +140,19 @@ export function QrGenerator() {
     }
   };
 
+  const handleUpload = async () => {
+    if (files.length > 0) {
+      const file = files[0];
+      const arrayBuffer = await file.arrayBuffer();
+      const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+
+      const xd = await amplifyClient.queries.generateQrWhatsApp({
+        file: base64,
+      });
+      console.log('🚀 ~ handleUpload ~ xd:', xd);
+    }
+  };
+
   return (
     <section id='upload-section' className='mb-16 scroll-mt-16'>
       <div className='mb-8 text-center'>
@@ -152,13 +165,7 @@ export function QrGenerator() {
         </p>
       </div>
 
-      <Button
-        onClick={() => {
-          amplifyClient.queries.generateQrWhatsApp({});
-        }}
-      >
-        TEST
-      </Button>
+      <Button onClick={handleUpload}>TEST</Button>
 
       <Card className=' border-2 shadow-lg'>
         <CardHeader>
