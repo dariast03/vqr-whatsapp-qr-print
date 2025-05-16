@@ -4,8 +4,9 @@ import { TopNav } from '@/components/layout/top-nav';
 import { ProfileDropdown } from '@/components/profile-dropdown';
 import { Search } from '@/components/search';
 import { ThemeSwitch } from '@/components/theme-switch';
+import { QrGenerator } from './components/qr-generator';
 
-export default function Dashboard() {
+export default function GenerateWhatsappQR() {
   return (
     <>
       {/* ===== Top Heading ===== */}
@@ -19,7 +20,9 @@ export default function Dashboard() {
       </Header>
 
       {/* ===== Main ===== */}
-      <Main>DASHBOARD</Main>
+      <Main>
+        <QrGenerator />
+      </Main>
     </>
   );
 }

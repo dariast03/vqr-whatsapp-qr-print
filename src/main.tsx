@@ -36,6 +36,7 @@ Amplify.configure({
 
 // Generated Routes
 import { routeTree } from './routeTree.gen';
+import { amplifyClient } from './amplify/client';
 
 const queryClient = new QueryClient({
   defaultOptions: {
