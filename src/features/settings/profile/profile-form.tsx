@@ -1,10 +1,10 @@
-import { z } from 'zod'
-import { useFieldArray, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Link } from '@tanstack/react-router'
-import { cn } from '@/lib/utils'
-import { showSubmittedData } from '@/utils/show-submitted-data'
-import { Button } from '@/components/ui/button'
+import { z } from 'zod';
+import { useFieldArray, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Link } from '@tanstack/react-router';
+import { cn } from '@/lib/utils';
+import { showSubmittedData } from '@/utils/show-submitted-data';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -13,16 +13,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 
 const profileFormSchema = z.object({
   username: z
@@ -46,9 +46,9 @@ const profileFormSchema = z.object({
       })
     )
     .optional(),
-})
+});
 
-type ProfileFormValues = z.infer<typeof profileFormSchema>
+type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 // This can come from your database or API.
 const defaultValues: Partial<ProfileFormValues> = {
@@ -57,19 +57,19 @@ const defaultValues: Partial<ProfileFormValues> = {
     { value: 'https://shadcn.com' },
     { value: 'http://twitter.com/shadcn' },
   ],
-}
+};
 
 export default function ProfileForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
     mode: 'onChange',
-  })
+  });
 
   const { fields, append } = useFieldArray({
     name: 'urls',
     control: form.control,
-  })
+  });
 
   return (
     <Form {...form}>
@@ -82,13 +82,13 @@ export default function ProfileForm() {
           name='username'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Usuario</FormLabel>
               <FormControl>
-                <Input placeholder='shadcn' {...field} />
+                <Input placeholder='usuario' {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name. It can be your real name or a
-                pseudonym. You can only change this once every 30 days.
+                Este es tu nombre público. Puede ser tu nombre real o un
+                seudónimo. Solo puedes cambiarlo una vez cada 30 días.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -99,11 +99,11 @@ export default function ProfileForm() {
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Correo electrónico</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder='Select a verified email to display' />
+                  <SelectTrigger className='w-full'>
+                    <SelectValue placeholder='Selecciona un correo verificado para mostrar' />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -113,8 +113,8 @@ export default function ProfileForm() {
                 </SelectContent>
               </Select>
               <FormDescription>
-                You can manage verified email addresses in your{' '}
-                <Link to='/'>email settings</Link>.
+                Puedes administrar los correos verificados en tu{' '}
+                <Link to='/'>configuración de correo</Link>.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -125,17 +125,17 @@ export default function ProfileForm() {
           name='bio'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Bio</FormLabel>
+              <FormLabel>Biografía</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder='Tell us a little bit about yourself'
+                  placeholder='Cuéntanos un poco sobre ti'
                   className='resize-none'
                   {...field}
                 />
               </FormControl>
               <FormDescription>
-                You can <span>@mention</span> other users and organizations to
-                link to them.
+                Puedes <span>@mencionar</span> a otros usuarios y organizaciones
+                para enlazarlos.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -153,7 +153,8 @@ export default function ProfileForm() {
                     URLs
                   </FormLabel>
                   <FormDescription className={cn(index !== 0 && 'sr-only')}>
-                    Add links to your website, blog, or social media profiles.
+                    Agrega enlaces a tu sitio web, blog o perfiles de redes
+                    sociales.
                   </FormDescription>
                   <FormControl>
                     <Input {...field} />
@@ -170,11 +171,11 @@ export default function ProfileForm() {
             className='mt-2'
             onClick={() => append({ value: '' })}
           >
-            Add URL
+            Agregar URL
           </Button>
         </div>
-        <Button type='submit'>Update profile</Button>
+        <Button type='submit'>Actualizar perfil</Button>
       </form>
     </Form>
-  )
+  );
 }

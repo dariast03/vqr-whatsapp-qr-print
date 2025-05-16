@@ -1,9 +1,9 @@
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { showSubmittedData } from '@/utils/show-submitted-data'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { showSubmittedData } from '@/utils/show-submitted-data';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Form,
   FormControl,
@@ -12,53 +12,53 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
+} from '@/components/ui/form';
 
 const items = [
   {
     id: 'recents',
-    label: 'Recents',
+    label: 'Recientes',
   },
   {
     id: 'home',
-    label: 'Home',
+    label: 'Inicio',
   },
   {
     id: 'applications',
-    label: 'Applications',
+    label: 'Aplicaciones',
   },
   {
     id: 'desktop',
-    label: 'Desktop',
+    label: 'Escritorio',
   },
   {
     id: 'downloads',
-    label: 'Downloads',
+    label: 'Descargas',
   },
   {
     id: 'documents',
-    label: 'Documents',
+    label: 'Documentos',
   },
-] as const
+] as const;
 
 const displayFormSchema = z.object({
   items: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: 'You have to select at least one item.',
   }),
-})
+});
 
-type DisplayFormValues = z.infer<typeof displayFormSchema>
+type DisplayFormValues = z.infer<typeof displayFormSchema>;
 
 // This can come from your database or API.
 const defaultValues: Partial<DisplayFormValues> = {
   items: ['recents', 'home'],
-}
+};
 
 export function DisplayForm() {
   const form = useForm<DisplayFormValues>({
     resolver: zodResolver(displayFormSchema),
     defaultValues,
-  })
+  });
 
   return (
     <Form {...form}>
@@ -72,9 +72,10 @@ export function DisplayForm() {
           render={() => (
             <FormItem>
               <div className='mb-4'>
-                <FormLabel className='text-base'>Sidebar</FormLabel>
+                <FormLabel className='text-base'>Barra lateral</FormLabel>
                 <FormDescription>
-                  Select the items you want to display in the sidebar.
+                  Selecciona los elementos que quieres mostrar en la barra
+                  lateral.
                 </FormDescription>
               </div>
               {items.map((item) => (
@@ -98,7 +99,7 @@ export function DisplayForm() {
                                     field.value?.filter(
                                       (value) => value !== item.id
                                     )
-                                  )
+                                  );
                             }}
                           />
                         </FormControl>
@@ -106,7 +107,7 @@ export function DisplayForm() {
                           {item.label}
                         </FormLabel>
                       </FormItem>
-                    )
+                    );
                   }}
                 />
               ))}
@@ -114,8 +115,8 @@ export function DisplayForm() {
             </FormItem>
           )}
         />
-        <Button type='submit'>Update display</Button>
+        <Button type='submit'>Actualizar pantalla</Button>
       </form>
     </Form>
-  )
+  );
 }

@@ -19,6 +19,7 @@ type UserAttributes = Partial<Record<UserAttributeKey, string>>;
 
 export function ProfileDropdown() {
   const [user, setUser] = useState<UserAttributes | null>(null);
+  const { signOut } = useAuthenticator((context) => [context.user]);
 
   const email = user?.email || '';
   const name = user?.name || email || '';
@@ -37,12 +38,13 @@ export function ProfileDropdown() {
   useEffect(() => {
     getUserInfo();
   }, []);
+
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
           <Avatar className='h-8 w-8'>
-            <AvatarImage src='/avatars/01.png' alt='@shadcn' />
+            <AvatarImage src='/avatars/01.png' alt='@username' />
             <AvatarFallback>{initialsName}</AvatarFallback>
           </Avatar>
         </Button>
@@ -62,27 +64,15 @@ export function ProfileDropdown() {
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
             <Link to='/settings'>
-              Profile
+              Perfil
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link to='/settings'>
-              Billing
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link to='/settings'>
-              Settings
-              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
+
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Log out
+        <DropdownMenuItem onClick={signOut}>
+          Cerrar Sesión
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
